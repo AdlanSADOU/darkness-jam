@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class UIScript : MonoBehaviour
 {
@@ -10,6 +10,8 @@ public class UIScript : MonoBehaviour
     void Start()
     {
         Button playButton = GameObject.Find("PlayButton").GetComponent<Button>();
+        playButton.onClick.AddListener(PlayGame);
+
         Button exitButton = GameObject.Find("ExitButton").GetComponent<Button>();
         exitButton.onClick.AddListener(QuitGame);
     }
@@ -22,7 +24,8 @@ public class UIScript : MonoBehaviour
 
     void PlayGame()
     {
-        
+        SceneManager.UnloadSceneAsync("MainMenu");
+        SceneManager.LoadScene("SampleScene");
     }
 
     void QuitGame()
