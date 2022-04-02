@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Main : MonoBehaviour
 {
@@ -28,7 +29,6 @@ public class Main : MonoBehaviour
         {
             Entity e = new Entity();
             e.gameObject = Instantiate<GameObject>(entity_prefab, new Vector3(0, 0, 0), Quaternion.identity);
-
 
             float r_x = Random.Range(40, 100);
             float r_y = Random.Range(40, 100);
@@ -72,12 +72,10 @@ public class Main : MonoBehaviour
             )
             {
                 entities[i].direction.x = (entities[i].direction.x) * -1;
-
             }
             if (((Camera.main.WorldToScreenPoint(entity_pos).y >= Screen.height) || (Camera.main.WorldToScreenPoint(entity_pos).y <= 0)))
             {
                 entities[i].direction.y = (entities[i].direction.y) * -1;
-
             }
         }
     }
