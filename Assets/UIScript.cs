@@ -24,7 +24,7 @@ public class UIScript : MonoBehaviour
 
     void PlayGame()
     {
-        SceneManager.UnloadSceneAsync("MainMenu");
+        // SceneManager.UnloadSceneAsync("MainMenu");
         SceneManager.LoadScene("SampleScene");
     }
 
