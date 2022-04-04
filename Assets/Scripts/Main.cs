@@ -7,6 +7,7 @@ using Unity.Entities;
 using Unity.Transforms;
 using Unity.Rendering;
 
+
 public class Main : MonoBehaviour
 {
     GameObject entity_prefab;
@@ -31,19 +32,29 @@ public class Main : MonoBehaviour
         canvas = GameObject.Find("Canvas");
         timer_text = GameObject.Find("Timer");
         timer_text.GetComponent<Text>().text = countdown.ToString();
+        entity_prefab = Resources.Load<GameObject>("Prefabs/Mob");
 
         Torch.Init();
 
 
 
-        entity_prefab = Resources.Load<GameObject>("Prefabs/Mob");
-
+        // entityManager = World.Active.EntityManager;
+        entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
         EntityArchetype archetype = entityManager.CreateArchetype(
             typeof(Translation),
             typeof(RenderMesh),
-            typeof(LocalToWorld)
+            typeof(LocalToWorld) // Needed for rendering
         );
 
+        Entity entity = entityManager.CreateEntity(archetype);
+
+
+        entityManager.SetComponentData<Translation>(entity, new Translation {
+            Value = new Vector3(0,0,0)
+        });
+        entityManager.SetSharedComponentData<RenderMesh>(entity, new RenderMesh {
+            mesh = entity_prefab.GetComponent<SpriteRenderer>().sprite.GetPhysicsShape()
+        });
 
     }
 
